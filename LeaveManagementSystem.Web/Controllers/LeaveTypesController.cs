@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Models.LeaveTypes;
-using AutoMapper;
+﻿using LeaveManagementSystem.Web.Models.LeaveTypes;
 using LeaveManagementSystem.Web.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Web.Controllers
 {
+    [Authorize(Roles = Roles.Administrator)]
     public class LeaveTypesController(ILeaveTypesService leaveTypesService) : Controller
     {
-       
+
         private const string NameExistsValidationMessage = "This leave type already exists.";
         private readonly ILeaveTypesService _leaveTypesService = leaveTypesService;
 
@@ -67,7 +60,7 @@ namespace LeaveManagementSystem.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                await _leaveTypesService.CreateLeaveType(leaveTypeCreate); 
+                await _leaveTypesService.CreateLeaveType(leaveTypeCreate);
                 return RedirectToAction(nameof(Index));
             }
             return View(leaveTypeCreate);
@@ -112,7 +105,7 @@ namespace LeaveManagementSystem.Web.Controllers
             {
                 try
                 {
-                    await _leaveTypesService.EditLeaveType(leaveTypeEdit); 
+                    await _leaveTypesService.EditLeaveType(leaveTypeEdit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -149,10 +142,10 @@ namespace LeaveManagementSystem.Web.Controllers
 
         // POST: LeaveTypes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _leaveTypesService.RemoveLeaveType(id);   
+            await _leaveTypesService.RemoveLeaveType(id);
             return RedirectToAction(nameof(Index));
         }
     }
