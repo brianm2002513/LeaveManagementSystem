@@ -2,7 +2,7 @@
 
 namespace LeaveManagementSystem.Web.Models.LeaveTypes
 {
-    public class LeaveTypeEditViewModel : BaseLeaveTypeViewModel
+    public class LeaveTypeEditViewModel : BaseModel
     {
         [Required]
         [Length(4, 150, ErrorMessage = "Leave name must be between 4 and 150 characters.")]

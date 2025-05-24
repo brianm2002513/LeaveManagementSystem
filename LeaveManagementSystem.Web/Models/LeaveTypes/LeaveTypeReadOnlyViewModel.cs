@@ -2,7 +2,7 @@
 
 namespace LeaveManagementSystem.Web.Models.LeaveTypes
 {
-    public class LeaveTypeReadOnlyViewModel : BaseLeaveTypeViewModel
+    public class LeaveTypeReadOnlyViewModel : BaseModel
     {
         public string Name { get; set; } = string.Empty;
 
