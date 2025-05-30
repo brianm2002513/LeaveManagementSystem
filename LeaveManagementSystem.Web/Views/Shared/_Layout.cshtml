@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Leave Management System</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LeaveManagementSystem.Web.styles.css" asp-append-version="true" />
 </head>
@@ -36,6 +37,7 @@
                                     <li><a class="dropdown-item text-dark" asp-area="" asp-controller="LeaveTypes" asp-action="Index">Leave Types</a></li>
                                     <li><a class="dropdown-item text-dark" asp-area="" asp-controller="Periods" asp-action="Index">Periods</a></li>
                                     <li><a class="dropdown-item text-dark" asp-area="" asp-controller="LeaveAllocation" asp-action="Index">View Employees</a></li>
+                                    <li><a class="dropdown-item text-dark" asp-area="" asp-controller="LeaveRequests" asp-action="ListRequests">Manage Requests</a></li>
                                 </ul>
                             </li>
                         }
@@ -63,6 +65,8 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

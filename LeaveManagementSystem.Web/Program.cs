@@ -6,6 +6,8 @@ using LeaveManagementSystem.Web.Services.Email;
 using LeaveManagementSystem.Web.Services.LeaveTypeService;
 using LeaveManagementSystem.Web.Services.PeriodService;
 using LeaveManagementSystem.Web.Services.LeaveAllocationService;
+using LeaveManagementSystem.Web.Services.LeaveRequestService;
+using LeaveManagementSystem.Web.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,16 @@ builder.Services.AddScoped<ILeaveTypesService, LeaveTypesService>();
 builder.Services.AddScoped<IPeriodsService, PeriodsService>();
 builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<ILeaveRequestService, LeaveRequestService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminSupervisorOnly", policy =>
+    {
+        policy.RequireRole(Roles.Administrator, Roles.Supervisor);
+    });
+});
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

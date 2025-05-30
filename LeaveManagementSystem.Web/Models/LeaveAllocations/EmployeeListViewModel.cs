@@ -1,4 +1,6 @@
-﻿public class EmployeeListViewModel
+﻿using LeaveManagementSystem.Web.Models.LeaveRequests;
+
+public class EmployeeListViewModel
 {
     public string Id { get; set; } = string.Empty;
 

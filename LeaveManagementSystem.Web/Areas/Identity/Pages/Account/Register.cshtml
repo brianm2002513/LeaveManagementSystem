@@ -91,4 +91,19 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $( function() {
+          $( "#Input_DateOfBirth" ).datepicker({
+              dateFormat: "yy-mm-dd",
+              changeMonth: true,
+              changeYear: true,
+              beforeShow: function(input, inst) {
+                $('label[for="Input_Password"], label[for="Input_ConfirmPassword"]').css("z-index", "-1");
+              },
+              onClose: function(dateText, inst) {
+                $('label[for="Input_Password"], label[for="Input_ConfirmPassword"]').css("z-index", "");
+              }
+          });
+        });
+    </script>
 }

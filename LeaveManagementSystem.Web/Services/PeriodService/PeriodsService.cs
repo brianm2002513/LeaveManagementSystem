@@ -20,6 +20,13 @@ namespace LeaveManagementSystem.Web.Services.PeriodService
             return viewData;
         }
 
+        public async Task<Period> GetCurrentPeriodAsync() {
+            var currentDate = DateTime.Now;
+            var period = await _context.Periods
+                .SingleAsync(q => q.EndDate.Year == currentDate.Year);
+            return period;
+        }
+
         public async Task<T?> GetPeriodById<T>(int id) where T : class
         {
             var period = await _context.Periods.FirstOrDefaultAsync(m => m.Id == id);
