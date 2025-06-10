@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using LeaveManagementSystem.Web.Data;
-using LeaveManagementSystem.Web.Models.Periods;
-using LeaveManagementSystem.Web.Services.PeriodService;
+﻿using Microsoft.EntityFrameworkCore;
+using LeaveManagementSystem.Application.Models.Periods;
+using LeaveManagementSystem.Application.Services.PeriodService;
 
 namespace LeaveManagementSystem.Web.Controllers
 {

@@ -1,6 +1,5 @@
+using LeaveManagementSystem.Application.Models;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using LeaveManagementSystem.Web.Models;
 
 namespace LeaveManagementSystem.Web.Controllers;
 
@@ -18,8 +17,6 @@ public class HomeController : Controller
         // Define business logic
         return View();
     }
-
-
 
     public IActionResult Privacy()
     {

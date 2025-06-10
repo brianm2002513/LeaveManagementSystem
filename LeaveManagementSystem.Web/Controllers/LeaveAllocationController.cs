@@ -1,7 +1,6 @@
-﻿using LeaveManagementSystem.Web.Models.LeaveAllocations;
-using LeaveManagementSystem.Web.Services.LeaveAllocationService;
-using LeaveManagementSystem.Web.Services.LeaveTypeService;
-using Microsoft.AspNetCore.Mvc;
+﻿using LeaveManagementSystem.Application.Models.LeaveAllocations;
+using LeaveManagementSystem.Application.Services.LeaveAllocationService;
+using LeaveManagementSystem.Application.Services.LeaveTypeService;
 
 namespace LeaveManagementSystem.Web.Controllers
 {

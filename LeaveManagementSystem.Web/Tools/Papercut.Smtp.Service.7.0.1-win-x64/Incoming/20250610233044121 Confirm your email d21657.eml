@@ -1,0 +1,59 @@
+MIME-Version: 1.0
+From: no-reply@localhost.com
+To: trevorphillips@gmail.com
+Date: 10 Jun 2025 23:30:44 +0200
+Subject: Confirm your email
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>=0D=0A<html lang=3D"en">=0D=0A=0D=0A<head>=0D=0A  =
+  <meta charset=3D"UTF-8">=0D=0A    <meta name=3D"viewport" conte=
+nt=3D"width=3Ddevice-width, initial-scale=3D1.0">=0D=0A    <title=
+>Leave Management System Notification</title>=0D=0A    <style>=0D=0A=
+        body {=0D=0A            font-family: Arial, sans-serif;=0D=0A=
+            background-color: #f4f4f4;=0D=0A            margin: 0=
+;=0D=0A            padding: 0;=0D=0A        }=0D=0A=0D=0A        =
+.container {=0D=0A            max-width: 600px;=0D=0A            =
+margin: 50px auto;=0D=0A            background-color: #ffffff;=0D=0A=
+            border-radius: 8px;=0D=0A            box-shadow: 0 0 =
+10px rgba(0, 0, 0, 0.1);=0D=0A            overflow: hidden;=0D=0A=
+        }=0D=0A=0D=0A        .header {=0D=0A            backgroun=
+d-color: #106dfc;=0D=0A            color: #ffffff;=0D=0A         =
+   padding: 20px;=0D=0A            text-align: center;=0D=0A     =
+   }=0D=0A=0D=0A            .header h1 {=0D=0A                mar=
+gin: 0;=0D=0A                font-size: 24px;=0D=0A            }=0D=0A=
+=0D=0A        .content {=0D=0A            padding: 20px;=0D=0A   =
+         color: #333333;=0D=0A        }=0D=0A=0D=0A            .c=
+ontent h2 {=0D=0A                font-size: 20px;=0D=0A          =
+      color: #106dfc;=0D=0A            }=0D=0A=0D=0A            .=
+content p {=0D=0A                font-size: 16px;=0D=0A          =
+      line-height: 1.6;=0D=0A            }=0D=0A=0D=0A        .fo=
+oter {=0D=0A            background-color: #f4f4f4;=0D=0A         =
+   color: #888888;=0D=0A            text-align: center;=0D=0A    =
+        padding: 20px;=0D=0A            font-size: 14px;=0D=0A   =
+     }=0D=0A=0D=0A        .button {=0D=0A            display: inl=
+ine-block;=0D=0A            padding: 10px 20px;=0D=0A            =
+margin-top: 20px;=0D=0A            background-color: #106dfc;=0D=0A=
+            color: #ffffff;=0D=0A            text-decoration: non=
+e;=0D=0A            border-radius: 5px;=0D=0A        }=0D=0A=0D=0A=
+            .button:hover {=0D=0A                background-color=
+: #45a049;=0D=0A            }=0D=0A=0D=0A        .signature {=0D=0A=
+            margin-top: 20px;=0D=0A            font-size: 16px;=0D=0A=
+        }=0D=0A    </style>=0D=0A</head>=0D=0A=0D=0A<body>=0D=0A =
+   <div class=3D"container">=0D=0A        <div class=3D"header">=0D=0A=
+            <h1>Leave Management System Notification</h1>=0D=0A  =
+      </div>=0D=0A        <div class=3D"content">=0D=0A          =
+  <h2>Hello, Trevor Phillips!</h2>=0D=0A            <p>Please con=
+firm your account by <a href=3D'https://localhost:7179/Identity/A=
+ccount/ConfirmEmail?userId=3D8f955e0b-1134-4436-a193-6e9480574d3f=
+&amp;code=3DQ2ZESjhQbUt6VGkrenlkQ2llb0V1QktDaFV5WUZTQmNvdWJiNXdoV=
+VFpd3k2QkJOVEwyWHpXNTJ3eXBSQTAvYlpRQzlLK1lwMlppcUxsSkRWd3MySjNFNn=
+NoenFsZUVzd2tyZ1RYWldraytLanhpOCtxSmN2eVZ1TzVJN3Bna1RZVEpmQm5DWkp=
+ObGNKc0VyTzNsOTNxeHE0Q3JML3pFUXZnbXNUMkdqWWpBTmdyaC8wb0x1MjU1TkYv=
+cUlsUjNvdVFGRlBWU21OQkVlY0hXR2N0T0haL3N3RnJHbjNRVVdpTkZBVk9RMkF0N=
+FpLYkMzc1puRWllTVBRR0F6UXY1NVZ4b2IzUT09&amp;returnUrl=3D%2F'>clic=
+king here</a>.</p>=0D=0A=0D=0A            <p class=3D"signature">=
+Best regards,<br>Leave Management Team</p>=0D=0A        </div>=0D=0A=
+        <div class=3D"footer">=0D=0A            <p>&copy; 2024 Le=
+ave Management System. All rights reserved.</p>=0D=0A        </di=
+v>=0D=0A    </div>=0D=0A</body>=0D=0A=0D=0A</html>

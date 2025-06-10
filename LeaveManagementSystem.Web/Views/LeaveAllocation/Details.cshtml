@@ -1,7 +1,9 @@
-﻿@model EmployeeAllocationViewModel
+﻿@using LeaveManagementSystem.Application.Models.LeaveAllocations
+@model EmployeeAllocationViewModel
 
 @{
 	ViewData["Title"] = "View Allocations";
+	Layout = "_Layout";
 	var isAdmin = User.IsInRole(Roles.Administrator);
 	var isEmployee = User.IsInRole(Roles.Employee);
 	string message = isAdmin ? "There are no allocations." : "You have no allocations. Please contact your Adminitsrator.";
@@ -89,9 +91,12 @@
 					<div class="col">
 							@if(isAdmin)
 							{
-								<a asp-controller="LeaveAllocation" asp-action="EditAllocation" asp-route-id="@allocation.Id">Edit Allocation</a><span> |</span>
+								<a asp-controller="LeaveAllocation" asp-action="EditAllocation" asp-route-id="@allocation.Id">Edit Allocation</a>
 							}
-							<a asp-controller="LeaveRequests" asp-action="Create" asp-route-leaveTypeId="@allocation.LeaveType.Id">Request Leave</a>
+							@if(isEmployee)
+							{
+								<a asp-controller="LeaveRequests" asp-action="Create" asp-route-leaveTypeId="@allocation.LeaveType.Id">Request Leave</a>
+							}
 					</div>
 				</div>
 			</li>
