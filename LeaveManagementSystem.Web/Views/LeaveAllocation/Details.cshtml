@@ -3,7 +3,6 @@
 
 @{
 	ViewData["Title"] = "View Allocations";
-	Layout = "_Layout";
 	var isAdmin = User.IsInRole(Roles.Administrator);
 	var isEmployee = User.IsInRole(Roles.Employee);
 	string message = isAdmin ? "There are no allocations." : "You have no allocations. Please contact your Adminitsrator.";

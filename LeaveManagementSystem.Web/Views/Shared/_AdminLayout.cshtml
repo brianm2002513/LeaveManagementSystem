@@ -30,14 +30,13 @@
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" >
-
         <!-- Sidebar Start -->
-        <aside class="left-sidebar">
+        <aside class="left-sidebar pt-5">
             <!-- Sidebar scroll-->
             <div>
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <div class=" mt-2 brand-logo d-flex align-items-center justify-content-between">
+                    <div class=" brand-logo d-flex align-items-center justify-content-between">
                         <a href="./index.html" class="text-nowrap logo-img">
                             <img src="~/images/logos/project-plan.png" width="180" alt="" />
                         </a>
@@ -56,9 +55,6 @@
                                 <span class="hide-menu">Home</span>
                             </a>
                         </li>
-                        <!-- ---------------------------------- -->
-                        <!-- Dashboard -->
-                        <!-- ---------------------------------- -->
                         <li class="sidebar-item">
                             <a class="sidebar-link primary-hover-bg justify-content-between"
                                asp-area="" asp-controller="Home" asp-action="Privacy" aria-expanded="false">
@@ -121,7 +117,7 @@
                         <li>
                             <span class="sidebar-divider lg"></span>
                         </li>
-                        @if (!SignInManager.IsSignedIn(User))
+                        @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-small-cap">
                                 <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
@@ -154,29 +150,15 @@
                 <div class="container-fluid" style="padding-top:10px">
                     <!--  Header Start -->
                     <header class="app-header">
-                        <nav class="navbar navbar-expand-lg navbar-light">
+                        <nav class="navbar navbar-expand-lg navbar-light sticky-position">
                             <ul class="navbar-nav">
                                 <li class="nav-item d-block d-xl-none">
                                     <a class="nav-link sidebartoggler " id="headerCollapse" href="javascript:void(0)">
                                         <i class="ti ti-menu-2"></i>
                                     </a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link " href="javascript:void(0)" id="drop1" data-bs-toggle="dropdown"
-                                       aria-expanded="false">
-                                        <iconify-icon icon="solar:bell-linear" class="fs-6"></iconify-icon>
-                                        <div class="notification bg-primary rounded-circle"></div>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-animate-up" aria-labelledby="drop1">
-                                        <div class="message-body">
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                Item 1
-                                            </a>
-                                            <a href="javascript:void(0)" class="dropdown-item">
-                                                Item 2
-                                            </a>
-                                        </div>
-                                    </div>
+                                <li class="nav-item ms-5">
+                                    <h1>Leave Management System </h1>
                                 </li>
                             </ul>
                             @if (SignInManager.IsSignedIn(User))
@@ -186,9 +168,8 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                                <div class= "user-profile me-sm-3 me-2">
-                                                    <img src="~/images/profile/user6.svg" alt="" width="35" height="35"
-                                                         class="rounded-circle">
+                                        <div class= "user-profile me-sm-3 me-2">
+                                           <img src="~/images/profile/user6.svg" alt="" width="35" height="35" class="rounded-circle">
                                         </div>
                                         <div class="d-none d-sm-block">
                                             <h6 class="fs-4 mb-1 profile-name">Hello @User.Identity?.Name!</h6>
@@ -216,9 +197,11 @@
                         </nav>
                     </header>
                     <!--  Header End -->
-                    <div class="card">
-                        <div class="card-body">
-                            @RenderBody()
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderBody()
+                            </div>
                         </div>
                     </div>
                 </div>
