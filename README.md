@@ -28,7 +28,7 @@ This project is the main application developed as part of Trevor Williams' **Com
 - [SQL Server](https://www.microsoft.com/en-us/sql-server)
 - IDE such as [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
 
-### Installation
+### Installation Instructions
 
 1. Clone the repository:
-<pre> ```bash git clone https://github.com/brianm2002513/LeaveManagementSystem.git cd LeaveManagementSystem ``` </pre>
+```git clone https://github.com/brianm2002513/LeaveManagementSystem.git cd LeaveManagementSystem ```
