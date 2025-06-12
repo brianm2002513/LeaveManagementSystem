@@ -31,4 +31,4 @@ This project is the main application developed as part of Trevor Williams' **Com
 ### Installation
 
 1. Clone the repository:
-
+<pre> ```bash git clone https://github.com/brianm2002513/LeaveManagementSystem.git cd LeaveManagementSystem ``` </pre>
