@@ -1,109 +1,146 @@
-﻿@using LeaveManagementSystem.Application.Models.LeaveAllocations
+@using LeaveManagementSystem.Application.Models.LeaveAllocations
 @model EmployeeAllocationViewModel
 
 @{
-	ViewData["Title"] = "View Allocations";
+	ViewData["Title"] = "Allocations - " + Model.FirstName + " " + Model.LastName;
 	var isAdmin = User.IsInRole(Roles.Administrator);
 	var isEmployee = User.IsInRole(Roles.Employee);
-	string message = isAdmin ? "There are no allocations." : "You have no allocations. Please contact your Adminitsrator.";
+	string emptyMessage = isAdmin ? "There are no allocations." : "You have no allocations. Please contact your Administrator.";
 }
 
-<h1>View Allocations for @Model.FirstName @Model.LastName</h1>
-@if(isAdmin)
-{
-	<a asp-action="Index" class="btn btn-primary mt-2">Back to List</a>
-}
-@if (isEmployee)
-{
-	<a asp-controller = "LeaveRequests" asp-action="Index" class="btn btn-primary mt-2">View Request History</a>
-	<br />
-}
-
-<div>
-	<hr/>
-	<dl class="row">
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.FirstName)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.FirstName)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.LastName)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.LastName)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Email)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Email)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.DateOfBirth)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.DateOfBirth)
-		</dd>
-	</dl> 
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    @if(isAdmin) {
+                        <li class="breadcrumb-item"><a asp-action="Index" class="text-primary fw-bold text-decoration-none">Employees</a></li>
+                    }
+                    <li class="breadcrumb-item active" aria-current="page">Allocations</li>
+                </ol>
+            </nav>
+            <h2 class="fw-bold mb-0">Allocations for @Model.FirstName @Model.LastName</h2>
+        </div>
+        <div>
+            @if(isAdmin) {
+                <a asp-action="Index" class="btn btn-outline-secondary rounded-3 px-4">
+                    <iconify-icon icon="solar:arrow-left-bold-duotone" width="18"></iconify-icon>
+                    Back to Directory
+                </a>
+            }
+            @if (isEmployee) {
+                <a asp-controller="LeaveRequests" asp-action="Index" class="btn btn-outline-primary rounded-3 px-4">
+                    <iconify-icon icon="solar:history-bold-duotone" width="18"></iconify-icon>
+                    View Request History
+                </a>
+            }
+        </div>
+    </div>
 </div>
-<hr/>
-@if(isAdmin && !Model.isCompletedAllocation)
-{
-	<div class="alert alert-warning">
-		<p>
-			User is missing some leave allocations
-		</p>
-	</div>
-	<form class="mb-3" asp-action="AllocateLeave">
-		<input type="hidden" asp-for="@Model.Id" />
-		<input type="submit" value="Allocate Missing Leave Type" class="btn btn-warning"/>
-	</form>
-}
 
-@if(Model.LeaveAllocations.Any()) {
-<div class="card">
-	<div class="card-header">
-		<h4>Leave Allocations for period @Model.LeaveAllocations[0].Period.Name</h4>
-	</div>
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item">
-			<div class="row">
-				<div class="col"><strong>Leave Name</strong></div>
-				<div class="col"><strong>Original Allocation</strong></div>
-				<div class="col"><strong>Current Allocation</strong></div>
-				<div class="col"><strong>Action</strong></div>
-			</div>
-		</li>
-		@foreach (var allocation in Model.LeaveAllocations)
-		{
-			<li class="list-group-item">
-				<div class="row">
-					<div class="col">@allocation.LeaveType.Name</div>
-					<div class="col">
-						<span class="badge rounded-pill text-bg-primary">@allocation.NumberOfDays</span>
-					</div>
-					<div class="col">
-						<span class="badge rounded-pill text-bg-warning">@allocation.NumberOfDays</span>
-					</div>
-					<div class="col">
-							@if(isAdmin)
-							{
-								<a asp-controller="LeaveAllocation" asp-action="EditAllocation" asp-route-id="@allocation.Id">Edit Allocation</a>
-							}
-							@if(isEmployee)
-							{
-								<a asp-controller="LeaveRequests" asp-action="Create" asp-route-leaveTypeId="@allocation.LeaveType.Id">Request Leave</a>
-							}
-					</div>
-				</div>
-			</li>
-		}
-	</ul>
+<div class="row g-4">
+    <!-- Employee Info Card -->
+    <div class="col-lg-4">
+        <div class="glass-card text-center">
+            <div class="mb-4 d-inline-block">
+                <img src="https://ui-avatars.com/api/?name=@Model.FirstName+@Model.LastName&background=4361ee&color=fff&size=128" 
+                     class="rounded-circle border border-5 border-white shadow-md mb-3" />
+                <h3 class="fw-bold text-dark mb-1">@Model.FirstName @Model.LastName</h3>
+                <p class="text-muted small fw-bold">@Model.Email</p>
+            </div>
+            
+            <div class="text-start border-top pt-4">
+                <div class="mb-3">
+                    <small class="text-muted d-block fw-bold text-uppercase" style="font-size: 0.6rem;">Date of Birth</small>
+                    <span class="text-dark fw-bold">@Model.DateOfBirth.ToString("MMMM dd, yyyy")</span>
+                </div>
+            </div>
+
+            @if(isAdmin && !Model.isCompletedAllocation)
+            {
+                <div class="alert alert-warning border-0 rounded-4 text-start mt-4">
+                    <div class="d-flex gap-2 align-items-center mb-2">
+                        <iconify-icon icon="solar:shield-warning-bold-duotone" class="fs-5"></iconify-icon>
+                        <span class="fw-bold small">Missing Allocations</span>
+                    </div>
+                    <form asp-action="AllocateLeave">
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <button type="submit" class="btn btn-warning btn-sm w-100 rounded-3 fw-bold">
+                            Allocate Missing Types
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Allocations List -->
+    <div class="col-lg-8">
+        <div class="glass-card h-100">
+            @if(Model.LeaveAllocations.Any()) {
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0 fw-bold">Active Allocations</h4>
+                    <span class="badge rounded-pill bg-primary px-3 py-2 fw-bold">Period: @Model.LeaveAllocations[0].Period.Name</span>
+                </div>
+
+                <div class="dash-table-container">
+                    <table class="dash-table">
+                        <thead>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>Allocation</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var allocation in Model.LeaveAllocations)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="p-2 rounded-3" style="background: rgba(67, 97, 238, 0.1); color: var(--primary);">
+                                                <iconify-icon icon="solar:calendar-bold-duotone" width="20"></iconify-icon>
+                                            </div>
+                                            <span class="fw-bold text-dark">@allocation.LeaveType.Name</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="text-center">
+                                                <small class="text-muted d-block fw-bold" style="font-size: 0.6rem;">Total</small>
+                                                <span class="badge rounded-pill bg-light text-primary px-3 fw-bold">@allocation.NumberOfDays Days</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        @if(isAdmin)
+                                        {
+                                            <a class="btn btn-light btn-sm rounded-3 px-3 fw-bold" asp-action="EditAllocation" asp-route-id="@allocation.Id">
+                                                <iconify-icon icon="solar:pen-bold-duotone"></iconify-icon>
+                                                Edit
+                                            </a>
+                                        }
+                                        @if(isEmployee)
+                                        {
+                                            <a class="btn-premium" style="padding: 0.4rem 1rem; font-size: 0.75rem;" asp-controller="LeaveRequests" asp-action="Create" asp-route-leaveTypeId="@allocation.LeaveType.Id">
+                                                <iconify-icon icon="solar:notes-bold-duotone" width="16"></iconify-icon>
+                                                Request
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            } else {
+                <div class="text-center py-5">
+                    <div class="p-5 rounded-circle d-inline-flex mb-4" style="background: rgba(245, 158, 11, 0.05);">
+                        <iconify-icon icon="solar:shield-warning-bold-duotone" width="80" class="text-warning"></iconify-icon>
+                    </div>
+                    <h4 class="fw-bold text-dark">@emptyMessage</h4>
+                </div>
+            }
+        </div>
+    </div>
 </div>
-} else {
-	<div class="alert alert-warning" role="alert">
-		<h2>@message</h2>
-	</div>
-}

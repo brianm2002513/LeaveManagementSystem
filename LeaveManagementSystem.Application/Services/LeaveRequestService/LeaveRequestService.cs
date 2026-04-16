@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using LeaveManagementSystem.Application.Models.LeaveRequests;
 using LeaveManagementSystem.Application.Services.LeaveAllocationService;
 using LeaveManagementSystem.Application.Services.UserService;
@@ -148,6 +148,9 @@ namespace LeaveManagementSystem.Application.Services.LeaveRequestService
         private async Task UpdateAllocationDays(LeaveRequest leaveRequest, bool deductDays)
         {
             var allocation = await _leaveAllocationsService.GetCurrentAllocation(leaveRequest.LeaveTypeId, leaveRequest.EmployeeId);
+            
+            if (allocation == null) return;
+
             var numberOfDays = CalculateDays(leaveRequest.StartDate, leaveRequest.EndDate);
 
             if (deductDays)

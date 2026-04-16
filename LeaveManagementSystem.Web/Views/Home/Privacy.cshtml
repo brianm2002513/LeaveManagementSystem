@@ -1,6 +1,22 @@
-﻿@{
+@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="glass-card">
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <div class="p-3 rounded-4" style="background: rgba(67, 97, 238, 0.1); color: var(--primary);">
+            <iconify-icon icon="solar:shield-keyhole-bold-duotone" width="32"></iconify-icon>
+        </div>
+        <h2 class="fw-bold mb-0">Privacy & Data Security</h2>
+    </div>
+    
+    <div class="text-muted" style="line-height: 1.8;">
+        <p>This Leave Management System is committed to protecting the sensitive personnel data of our employees. All leave data, medical reasons (if provided), and contact information are strictly handled according to organizational HR policies and data protection regulations.</p>
+        
+        <h5 class="fw-bold text-dark mt-4">Data Usage</h5>
+        <p>Your data is used solely for the purpose of leave allocation, approval workflows, and historical auditing. It is only accessible by assigned supervisors and the Human Resources department.</p>
+
+        <h5 class="fw-bold text-dark mt-4">Security</h5>
+        <p>We utilize modern encryption and secure authentication through ASP.NET Core Identity to ensure that your personal information remain secure at all times.</p>
+    </div>
+</div>

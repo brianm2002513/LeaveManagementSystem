@@ -1,82 +1,80 @@
-﻿@using LeaveManagementSystem.Application.Models.LeaveRequests
+@using LeaveManagementSystem.Application.Models.LeaveRequests
 @using LeaveManagementSystem.Application.Services.LeaveRequestService
 @model IEnumerable<LeaveRequestReadOnlyViewModel>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+
 @{
-    ViewData["Title"] = "Leave Request List";
+    ViewData["Title"] = "My Leave History";
 }
 
-<h1>Leave Requests</h1>
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold mb-0">My Leave History</h2>
+            <p class="text-muted mb-0">Track all your submitted leave requests and their current status.</p>
+        </div>
+        <a asp-action="Create" class="btn-premium">
+            <iconify-icon icon="solar:calendar-add-bold-duotone" width="20"></iconify-icon>
+            Request Leave
+        </a>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary mt-2">Request Leave</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LeaveRequestStatus)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-			var className = string.Empty;
-            if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Approved)
-            {
-                className = "success";
-            } else if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Declined)
-            {
-                className = "danger";
-            } else if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Pending)
-            {
-                className = "warning";
-			} else if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Cancelled)
-            {
-                className = "dark";
-			}
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LeaveType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfDays)
-                </td>
-                <td>
-                    <span class="badge rounded-pill bg-@className">@item.LeaveRequestStatus.ToString()</span>
-                </td>
-                <td>
-                    @if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Pending)
-                    {
-                      <button data-id="@item.Id" class="btn btn-close cancelBtn"></button>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="glass-card">
+    <div class="dash-table-container">
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>Leave Type</th>
+                    <th>Duration</th>
+                    <th>Days</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var statusClass = "status-pending";
+                    if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Approved) statusClass = "status-approved";
+                    else if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Declined) statusClass = "status-declined";
+                    else if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Cancelled) statusClass = "bg-light text-muted";
+
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="p-2 rounded-3" style="background: rgba(67, 97, 238, 0.1); color: var(--primary);">
+                                    <iconify-icon icon="solar:folder-open-bold-duotone" width="20"></iconify-icon>
+                                </div>
+                                <span class="fw-bold text-dark">@item.LeaveType</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="small fw-bold text-dark">
+                                @item.StartDate.ToString("MMM dd") - @item.EndDate.ToString("MMM dd, yyyy")
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge rounded-pill bg-light text-primary px-3 py-2 fw-bold">@item.NumberOfDays Days</span>
+                        </td>
+                        <td>
+                            <span class="status-badge @statusClass">@item.LeaveRequestStatus.ToString()</span>
+                        </td>
+                        <td class="text-end">
+                            @if (item.LeaveRequestStatus == LeaveRequestStatusEnum.Pending)
+                            {
+                                <button data-id="@item.Id" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 fw-bold cancelBtn">
+                                    <iconify-icon icon="solar:trash-bin-minimalistic-bold-duotone" class="me-1"></iconify-icon>
+                                    Cancel
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <form id="cancelForm" asp-action="Cancel">
     <input type="hidden" name="id" id="leaveRequestId" />
 </form>
@@ -88,14 +86,20 @@
                 function(e){
                    swal({
                         title: "Are you sure?",
-                        text: "You will not be able to recover this request!",
+                        text: "You want to withdraw this leave request?",
                         icon: "warning",
-                        buttons: true,
+                        buttons: {
+                            cancel: "Back",
+                            confirm: {
+                                text: "Yes, Withdraw",
+                                className: "btn-danger"
+                            }
+                        },
                         dangerMode: true,
                     }).then((confirm) => {
                         if (confirm) {
                             var btn = $(this);
-							var id = btn.data('id');
+                            var id = btn.data('id');
                             $('#leaveRequestId').val(id);
                             $('#cancelForm').submit();
                         }

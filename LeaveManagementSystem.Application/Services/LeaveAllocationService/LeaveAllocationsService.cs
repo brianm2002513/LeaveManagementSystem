@@ -1,4 +1,4 @@
-﻿
+
 using AutoMapper;
 using LeaveManagementSystem.Application.Models.LeaveAllocations;
 using LeaveManagementSystem.Application.Services.PeriodService;
@@ -18,6 +18,10 @@ namespace LeaveManagementSystem.Application.Services.LeaveAllocationService
 
             // get the current period based on the year
             var period = await _periodsService.GetCurrentPeriodAsync();
+            if (period == null)
+            {
+                return;
+            }
             var monthsRemaining = period.EndDate.Month - DateTime.Now.Month;
             // calculate leave based on number of months left in the period
             // foreach leave type, create an allocation entry
@@ -104,11 +108,13 @@ namespace LeaveManagementSystem.Application.Services.LeaveAllocationService
                 .ExecuteUpdateAsync(s => s.SetProperty(x => x.NumberOfDays, allocationEditViewModel.NumberOfDays));
         }
 
-        public async Task<LeaveAllocation> GetCurrentAllocation(int leaveTypeId, string employeeId)
+        public async Task<LeaveAllocation?> GetCurrentAllocation(int leaveTypeId, string employeeId)
         {
             var period = await _periodsService.GetCurrentPeriodAsync();
+            if (period == null) return null;
+
             var allocation = await _context.LeaveAllocations
-                .FirstAsync(q => q.EmployeeId == employeeId 
+                .FirstOrDefaultAsync(q => q.EmployeeId == employeeId 
                 && q.LeaveTypeId == leaveTypeId 
                 && q.PeriodId == period.Id);
 
@@ -117,6 +123,8 @@ namespace LeaveManagementSystem.Application.Services.LeaveAllocationService
         private async Task<List<LeaveAllocation>> GetAllocations(string? userId)
         {
             var period = await _periodsService.GetCurrentPeriodAsync();
+            if (period == null) return new List<LeaveAllocation>();
+
             var leaveAllocations = await _context.LeaveAllocations
                 .Include(q => q.LeaveType)
                 .Include(q => q.Period)

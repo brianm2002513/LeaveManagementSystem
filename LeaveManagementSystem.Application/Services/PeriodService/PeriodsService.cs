@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -18,10 +18,10 @@ namespace LeaveManagementSystem.Application.Services.PeriodService
             return viewData;
         }
 
-        public async Task<Period> GetCurrentPeriodAsync() {
+        public async Task<Period?> GetCurrentPeriodAsync() {
             var currentDate = DateTime.Now;
             var period = await _context.Periods
-                .SingleAsync(q => q.EndDate.Year == currentDate.Year);
+                .FirstOrDefaultAsync(q => q.EndDate.Year == currentDate.Year);
             return period;
         }
 

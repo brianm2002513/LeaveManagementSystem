@@ -1,40 +1,103 @@
-﻿@using LeaveManagementSystem.Application.Models.LeaveRequests
+@using LeaveManagementSystem.Application.Models.LeaveRequests
 @model LeaveRequestCreateViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Request New Leave";
 }
 
-<h1>Create Leave Request</h1>
-<hr />
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" class="text-primary fw-bold text-decoration-none">My History</a></li>
+                <li class="breadcrumb-item active" aria-current="page">New Request</li>
+            </ol>
+        </nav>
+        <h2 class="fw-bold mb-0">Submit Leave Request</h2>
+        <p class="text-muted">Enter your leave dates and details for supervisor approval.</p>
+    </div>
+</div>
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LeaveTypeId" class="control-label"></label>
-                <select asp-for="LeaveTypeId" class ="form-select" asp-items="@Model.LeaveTypes"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="RequestComments" class="control-label"></label>
-                <textarea asp-for="RequestComments" class="form-control"></textarea>
-                <span asp-validation-for="RequestComments" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-2">
-                <input type="submit" value="Create" class="btn btn-success" />
-				<a asp-action="Index" class="btn btn-danger">Cancel</a>
-            </div>
-        </form>
+    <div class="col-lg-8">
+        <div class="glass-card">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="LeaveTypeId" class="form-label fw-bold text-dark">Leave Category</label>
+                        <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                            <span class="input-group-text bg-white border-end-0">
+                                <iconify-icon icon="solar:tag-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                            </span>
+                            <select asp-for="LeaveTypeId" class="form-control-dash border-start-0" asp-items="@Model.LeaveTypes">
+                                <option value="">-- Select Type --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="StartDate" class="form-label fw-bold text-dark">Start Date</label>
+                        <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                            <span class="input-group-text bg-white border-end-0">
+                                <iconify-icon icon="solar:calendar-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                            </span>
+                            <input asp-for="StartDate" type="text" class="form-control-dash border-start-0" placeholder="YYYY-MM-DD" />
+                        </div>
+                        <span asp-validation-for="StartDate" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="EndDate" class="form-label fw-bold text-dark">End Date</label>
+                        <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                            <span class="input-group-text bg-white border-end-0">
+                                <iconify-icon icon="solar:calendar-date-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                            </span>
+                            <input asp-for="EndDate" type="text" class="form-control-dash border-start-0" placeholder="YYYY-MM-DD" />
+                        </div>
+                        <span asp-validation-for="EndDate" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label asp-for="RequestComments" class="form-label fw-bold text-dark">Additional Comments (Optional)</label>
+                    <textarea asp-for="RequestComments" class="form-control-dash" rows="4" placeholder="Briefly explain the reason for your request..."></textarea>
+                    <span asp-validation-for="RequestComments" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn-premium flex-grow-1 justify-content-center">
+                        <iconify-icon icon="solar:file-send-bold-duotone" width="20"></iconify-icon>
+                        Submit Request
+                    </button>
+                    <a class="btn btn-outline-secondary rounded-3 px-4 d-flex align-items-center" asp-action="Index">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-4 d-none d-lg-block">
+        <div class="glass-card mb-4" style="background: linear-gradient(135deg, #fff 0%, #f0f4ff 100%);">
+            <h5 class="fw-bold text-primary mb-3">Submission Policy</h5>
+            <ul class="list-unstyled text-muted small" style="line-height: 1.8;">
+                <li class="mb-2 d-flex gap-2">
+                    <iconify-icon icon="solar:info-circle-bold-duotone" class="text-primary mt-1"></iconify-icon>
+                    <span>Requests should be submitted at least <b>3 days</b> in advance.</span>
+                </li>
+                <li class="mb-2 d-flex gap-2">
+                    <iconify-icon icon="solar:info-circle-bold-duotone" class="text-primary mt-1"></iconify-icon>
+                    <span>Ensure you have enough <b>allocated balance</b> for the selected dates.</span>
+                </li>
+            </ul>
+        </div>
+        <div class="glass-card" style="background: linear-gradient(135deg, rgba(247,37,133,0.05) 0%, rgba(114,9,183,0.05) 100%);">
+            <h5 class="fw-bold text-dark mb-3">Balance Check</h5>
+            <p class="text-muted small">Your leave balance will be updated automatically upon supervisor approval of this request.</p>
+        </div>
     </div>
 </div>
 
@@ -43,14 +106,14 @@
     <script>
         $( function() {
           $( "#StartDate" ).datepicker({
-			  dateFormat: "yy-mm-dd",
-			  changeMonth: true,
-			  changeYear: true,
+              dateFormat: "yy-mm-dd",
+              changeMonth: true,
+              changeYear: true,
           });
           $( "#EndDate" ).datepicker({
-			  dateFormat: "yy-mm-dd",
-			  changeMonth: true,
-			  changeYear: true,
+              dateFormat: "yy-mm-dd",
+              changeMonth: true,
+              changeYear: true,
           });
         });
     </script>

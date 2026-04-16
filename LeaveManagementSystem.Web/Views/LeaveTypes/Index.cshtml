@@ -1,43 +1,80 @@
-﻿@using LeaveManagementSystem.Application.Models.LeaveTypes
-
+@using LeaveManagementSystem.Application.Models.LeaveTypes
 @model IEnumerable<LeaveTypeReadOnlyViewModel>
 
 @{
-    ViewData["Title"] = "Leave Types";
+    ViewData["Title"] = "Leave Types Configuration";
 }
 
-<h1>Leave Types</h1>
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold mb-0">Leave Types</h2>
+            <p class="text-muted mb-0">Manage the available leave categories and their defaults.</p>
+        </div>
+        <a asp-action="Create" class="btn-premium">
+            <iconify-icon icon="solar:add-circle-bold-duotone" width="20"></iconify-icon>
+            Add New Type
+        </a>
+    </div>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfDays)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfDays)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="glass-card">
+    <div class="dash-table-container">
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>Leave Name</th>
+                    <th>Default Days</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded-3" style="background: rgba(67, 97, 238, 0.1); color: var(--primary);">
+                                <iconify-icon icon="solar:calendar-bold-duotone" width="24"></iconify-icon>
+                            </div>
+                            <span class="fw-bold text-dark">@item.Name</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge rounded-pill bg-light text-primary px-3 py-2 fw-bold">
+                            @item.NumberOfDays Days
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm rounded-3 px-3" type="button" data-bs-toggle="dropdown">
+                                <iconify-icon icon="solar:menu-dots-bold" width="18"></iconify-icon>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg p-2" style="border-radius: 12px;">
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 rounded-3 py-2" asp-action="Edit" asp-route-id="@item.Id">
+                                        <iconify-icon icon="solar:pen-bold-duotone" class="text-primary"></iconify-icon>
+                                        Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 rounded-3 py-2" asp-action="Details" asp-route-id="@item.Id">
+                                        <iconify-icon icon="solar:eye-bold-duotone" class="text-info"></iconify-icon>
+                                        Details
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider opacity-50"></li>
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center gap-2 rounded-3 py-2 text-danger" asp-action="Delete" asp-route-id="@item.Id">
+                                        <iconify-icon icon="solar:trash-bin-trash-bold-duotone"></iconify-icon>
+                                        Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

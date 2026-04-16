@@ -1,4 +1,4 @@
-﻿namespace LeaveManagementSystem.Application.Services.PeriodService
+namespace LeaveManagementSystem.Application.Services.PeriodService
 {
     public interface IPeriodsService
     {
@@ -10,7 +10,7 @@
         Task CreatePeriod(PeriodCreateViewModel model);
         Task EditPeriod(PeriodEditViewModel model);
         Task<List<PeriodReadOnlyViewModel>> GetAllPeriodsAsync();
-        Task<Period> GetCurrentPeriodAsync();
+        Task<Period?> GetCurrentPeriodAsync();
         Task<T?> GetPeriodById<T>(int id) where T : class;
         bool periodExists(int id);
         Task RemovePeriod(int id);

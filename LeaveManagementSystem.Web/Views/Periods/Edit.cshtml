@@ -1,43 +1,96 @@
-﻿@using LeaveManagementSystem.Application.Models.Periods
+@using LeaveManagementSystem.Application.Models.Periods
 @model PeriodEditViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Leave Period";
 }
 
-<h1>Edit</h1>
-
-<h4>Period</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
-                <input asp-for="EndDate" class="form-control" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group mt-1">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" class="text-primary fw-bold text-decoration-none">Leave Periods</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Modify Period</li>
+            </ol>
+        </nav>
+        <h2 class="fw-bold mb-0">Modify Leave Period</h2>
+        <p class="text-muted">Update the timeframe for <span class="text-secondary fw-bold">@Model.Name</span>.</p>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="row">
+    <div class="col-lg-7">
+        <div class="glass-card">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+                
+                <div class="mb-4">
+                    <label asp-for="Name" class="form-label fw-bold text-dark">Period Name</label>
+                    <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                        <span class="input-group-text bg-white border-end-0">
+                            <iconify-icon icon="solar:letter-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                        </span>
+                        <input asp-for="Name" class="form-control-dash border-start-0" placeholder="e.g. 2025 Calendar Year" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label asp-for="StartDate" class="form-label fw-bold text-dark">Start Date</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <iconify-icon icon="solar:calendar-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                                </span>
+                                <input asp-for="StartDate" type="text" class="form-control-dash border-start-0" placeholder="YYYY-MM-DD" />
+                            </div>
+                            <span asp-validation-for="StartDate" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-4">
+                            <label asp-for="EndDate" class="form-label fw-bold text-dark">End Date</label>
+                            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                                <span class="input-group-text bg-white border-end-0">
+                                    <iconify-icon icon="solar:calendar-date-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                                </span>
+                                <input asp-for="EndDate" type="text" class="form-control-dash border-start-0" placeholder="YYYY-MM-DD" />
+                            </div>
+                            <span asp-validation-for="EndDate" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mt-5">
+                    <button type="submit" class="btn-premium flex-grow-1 justify-content-center">
+                        <iconify-icon icon="solar:diskette-bold-duotone" width="20"></iconify-icon>
+                        Update Period
+                    </button>
+                    <a class="btn btn-outline-secondary rounded-3 px-4 d-flex align-items-center" asp-action="Index">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-lg-5 d-none d-lg-block">
+        <div class="glass-card h-100" style="background: linear-gradient(135deg, rgba(114,9,183,0.05) 0%, rgba(67,97,238,0.05) 100%); border: 1px dashed var(--secondary);">
+            <h5 class="fw-bold text-secondary mb-3">Modification Alert</h5>
+            <ul class="list-unstyled text-muted" style="line-height: 1.8;">
+                <li class="mb-2 d-flex gap-2">
+                    <iconify-icon icon="solar:shield-warning-bold-duotone" class="text-warning mt-1"></iconify-icon>
+                    <span>Modifying an <b>Active Period's</b> dates may affect current leave calculations and validity.</span>
+                </li>
+                <li class="mb-2 d-flex gap-2">
+                    <iconify-icon icon="solar:info-circle-bold-duotone" class="text-primary mt-1"></iconify-icon>
+                    <span>Ensure the start date remains before the end date.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -56,4 +109,4 @@
           });
         });
     </script>
-}
+} 

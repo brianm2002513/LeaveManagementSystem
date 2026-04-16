@@ -1,32 +1,78 @@
-﻿@using LeaveManagementSystem.Application.Models.LeaveTypes
+@using LeaveManagementSystem.Application.Models.LeaveTypes
 @model LeaveTypeCreateViewModel
 
 @{
-    ViewData["Title"] = "Create Leave Type";
+    ViewData["Title"] = "Create New Leave Type";
 }
 
-<h1>Create Leave Type</h1>
+<div class="row mb-4">
+    <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" class="text-primary fw-bold text-decoration-none">Leave Types</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Create New</li>
+            </ol>
+        </nav>
+        <h2 class="fw-bold mb-0">Create Leave Type</h2>
+        <p class="text-muted">Define a new category of leave for the organization.</p>
+    </div>
+</div>
 
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-2">
-                <label asp-for="NumberOfDays" class="control-label">Number of Days</label>
-                <input asp-for="NumberOfDays" class="form-control" />
-                <span asp-validation-for="NumberOfDays" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
-                <a class="btn btn-primary" asp-action="Index">Back to List</a>
-            </div>
-        </form>
+    <div class="col-lg-6">
+        <div class="glass-card">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <div class="mb-4">
+                    <label asp-for="Name" class="form-label fw-bold text-dark">Category Name</label>
+                    <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                        <span class="input-group-text bg-white border-end-0">
+                            <iconify-icon icon="solar:tag-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                        </span>
+                        <input asp-for="Name" class="form-control-dash border-start-0" placeholder="e.g. Annual Leave, Sick Leave" />
+                    </div>
+                    <span asp-validation-for="Name" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="NumberOfDays" class="form-label fw-bold text-dark">Default Duration (Days)</label>
+                    <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                        <span class="input-group-text bg-white border-end-0">
+                            <iconify-icon icon="solar:calendar-date-bold-duotone" class="text-primary fw-bold"></iconify-icon>
+                        </span>
+                        <input asp-for="NumberOfDays" class="form-control-dash border-start-0" placeholder="e.g. 21" />
+                    </div>
+                    <span asp-validation-for="NumberOfDays" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="d-flex gap-3 mt-5">
+                    <button type="submit" class="btn-premium flex-grow-1 justify-content-center">
+                        <iconify-icon icon="solar:file-check-bold-duotone" width="20"></iconify-icon>
+                        Create Leave Type
+                    </button>
+                    <a class="btn btn-outline-secondary rounded-3 px-4 d-flex align-items-center" asp-action="Index">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-lg-5 offset-lg-1 d-none d-lg-block">
+        <div class="glass-card" style="background: linear-gradient(135deg, rgba(67,97,238,0.05) 0%, rgba(247,37,133,0.05) 100%); border: 1px dashed var(--primary);">
+            <h5 class="fw-bold text-primary mb-3">Tips</h5>
+            <ul class="list-unstyled text-muted" style="line-height: 1.8;">
+                <li class="mb-2 d-flex gap-2">
+                    <iconify-icon icon="solar:info-circle-bold-duotone" class="text-primary mt-1"></iconify-icon>
+                    <span>The <b>Default Duration</b> will be used to initialize balances for all eligible employees.</span>
+                </li>
+                <li class="mb-2 d-flex gap-2">
+                    <iconify-icon icon="solar:info-circle-bold-duotone" class="text-primary mt-1"></iconify-icon>
+                    <span>Choose a clear and unique name to avoid confusion in leave requests.</span>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 

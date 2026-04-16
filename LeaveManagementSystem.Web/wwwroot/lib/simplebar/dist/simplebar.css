@@ -8,7 +8,7 @@
 }
 
 .simplebar-wrapper {
-  overflow: hidden;
+  overflow-y: visible;
   width: inherit;
   height: inherit;
   max-width: inherit;
@@ -18,7 +18,7 @@
 .simplebar-mask {
   direction: inherit;
   position: absolute;
-  overflow: hidden;
+  overflow: visible;
   padding: 0;
   margin: 0;
   left: 0;
@@ -49,10 +49,13 @@
   box-sizing: border-box !important;
   position: relative;
   display: block;
-  height: 100%; /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
+  height: 100%;
+  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
   width: auto;
-  max-width: 100%; /* Not required for horizontal scroll to trigger */
-  max-height: 100%; /* Needed for vertical scroll to trigger */
+  max-width: 100%;
+  /* Not required for horizontal scroll to trigger */
+  max-height: 100%;
+  /* Needed for vertical scroll to trigger */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
