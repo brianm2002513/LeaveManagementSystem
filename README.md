@@ -1,74 +1,42 @@
-# Employee Leave Management System
+# Enterprise Leave Management System 🏢
 
-## Overview
-This project is the main application developed as part of Trevor Williams' **Complete ASP.NET Core and Entity Framework Development** course. It is an Employee Leave Management System built using ASP.NET Core MVC and Entity Framework Core, featuring user authentication, role-based access control, and a SQL Server database backend.
+A production-ready Enterprise Leave Management System built using **ASP.NET Core 9**, following an **N-Tier (Clean Architecture)** design pattern and fully covered by an **xUnit / InMemory EF Core Test Suite**.
 
-## ✨ Features
-- User registration and login with ASP.NET Core Identity
-- Role-based authorization (Admin, Employee)
-- CRUD operations for leave requests and leave types
-- Leave approval workflow for managers
-- Responsive UI with Bootstrap
-- Data validation and error handling
-- Deployment-ready for Azure or local IIS
+## 🧠 Engineering Highlights
+This project was specifically constructed to demonstrate high-level backend engineering principles:
 
-## 🛠️ Technologies Used
-- ASP.NET Core MVC
-- Entity Framework Core (Code First)
-- SQL Server
-- ASP.NET Core Identity
-- Bootstrap 5
-- AutoMapper
-- Dependency Injection
+1.  **N-Tier Architecture**: The application is cleanly separated into `Application`, `Data`, `Common`, and `Web` layers. This separation of concerns ensures that business logic is strictly decoupled from presentation logic.
+2.  **Dependency Injection**: Extensively uses ASP.NET Core's built-in DI container to inject Services, DbContexts, and Mappers.
+3.  **AutoMapper**: Utilizes AutoMapper to elegantly convert database entities (`LeaveType`) into safe Data Transfer Objects / ViewModels (`LeaveTypeReadOnlyViewModel`).
+4.  **Test-Driven Architecture (xUnit & Moq)**: The core business logic (`LeaveTypesService`) is validated by a robust `xUnit` test suite.
+5.  **EF Core In-Memory Testing**: Instead of mocking raw `DbSets` (which is prone to false positives), the test suite spins up a real `Microsoft.EntityFrameworkCore.InMemory` database for each test, ensuring that LINQ queries and `DbContext` operations work flawlessly without needing a live SQL Server.
 
-## Getting Started
+## 🛠 Tech Stack
+*   **Framework**: ASP.NET Core 9 MVC
+*   **ORM**: Entity Framework Core
+*   **Database**: SQL Server (LocalDB) / EF InMemory (Testing)
+*   **Testing**: xUnit, Moq, Shouldly
+*   **Mapping**: AutoMapper
 
-### Prerequisites
-- [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download)
-- [SQL Server](https://www.microsoft.com/en-us/sql-server)
-- IDE such as [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
+## 🚀 How to Run
 
-### 🛠️ Installation Instructions
-
-1. Clone the repository:
+### Run the Application
+Open the solution in Visual Studio or run via CLI:
 ```bash
-git clone https://github.com/brianm2002513/LeaveManagementSystem.git
-cd LeaveManagementSystem
+dotnet run --project LeaveManagementSystem.Web
 ```
 
-2. Update the connection string in `appsettings.json` to point to your SQL Server instance:
+### Run the Unit Tests
+To execute the business logic tests and verify the EF Core queries:
 ```bash
-"ConnectionStrings": {
-"DefaultConnection": "Server=YOUR_SERVER_NAME;Database=LeaveManagementSystemDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-}
+dotnet test
 ```
 
-3. Apply migrations and seed the database:
-```bash
-dotnet ef database update
-```
-
-4. Run the application:
-```bash
-dotnet run
-```
-5. Open your browser and navigate to `https://localhost:7179` (or the URL shown in the console).
-
-## Usage
-- Register a new user or use seeded admin credentials.
-- Default Admin Credentials:
-    - Username: admin@localhost.com
-    - Password: Admin@123
-- Create, view, and manage leave requests.
-- Admin users can approve or reject leave requests.
-
-## 📄 License
-This project is licensed under the MIT License.
-
-## 🙌 Contact
-For questions or feedback, please contact me at munashebrian19@gmail.com.
+## 🧪 Test Suite Features
+The `LeaveManagementSystem.Application.Tests` project demonstrates:
+*   Mocking built-in ASP.NET dependencies (`ILogger<T>`) using `Moq`.
+*   Configuring custom `AutoMapper` profiles inside the test constructor.
+*   Asserting business rules (e.g., `DaysExceedMaximum` bounds checking) using the `Shouldly` fluent assertion library.
 
 ---
-
-
-
+*Created by Brian Munashe Mbawa as a demonstration of C# / .NET Enterprise Architecture.*
