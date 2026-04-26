@@ -29,7 +29,7 @@ This project was specifically constructed to demonstrate high-level backend engi
 ## 🚀 How to Run
 
 ### Run the Application
-Open the solution in Visual Studio or run via CLI:
+Open the solution in Visual Studio or run via a CLI:
 ```bash
 dotnet run --project LeaveManagementSystem.Web
 ```
