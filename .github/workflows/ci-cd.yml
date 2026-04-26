@@ -28,8 +28,28 @@ jobs:
         name: build-output
         path: LeaveManagementSystem.Web/bin/Release/net9.0/
 
-  test:
+  security-scan:
     needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: csharp
+    - name: Build for CodeQL
+      run: dotnet build
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+  test:
+    needs: security-scan
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
