@@ -1,6 +1,14 @@
-# Enterprise Leave Management System 🏢
+[![.NET CI/CD Pipeline](https://github.com/brianm2002513/LeaveManagementSystem/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/brianm2002513/LeaveManagementSystem/actions/workflows/ci-cd.yml)
 
 A production-ready Enterprise Leave Management System built using **ASP.NET Core 9**, following an **N-Tier (Clean Architecture)** design pattern and fully covered by an **xUnit / InMemory EF Core Test Suite**.
+
+## 🔄 CI/CD Pipeline
+This project is backed by a fully automated GitHub Actions pipeline that enforces quality on every push:
+*   **Build**: Restores and compiles the entire solution under `Release` configuration.
+*   **Test**: Executes the xUnit test suite using a real `InMemory` database provider.
+*   **Publish**: Generates a self-contained production bundle.
+*   **Release**: Automatically generates a GitHub Release with the compiled binary on every merge to `main`.
+
 
 ## 🧠 Engineering Highlights
 This project was specifically constructed to demonstrate high-level backend engineering principles:

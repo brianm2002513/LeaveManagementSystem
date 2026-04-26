@@ -1,0 +1,81 @@
+name: .NET CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x # Updated to match Project TargetFramework
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: LeaveManagementSystem.Web/bin/Release/net9.0/
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Run Tests
+      run: dotnet test --no-build -c Release --verbosity normal
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: dotnet publish LeaveManagementSystem.Web/LeaveManagementSystem.Web.csproj -c Release -o ./publish
+    - name: Upload Publish Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: publish-artifact
+        path: ./publish
+
+  release:
+    needs: publish
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+    - name: Download Publish Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: publish-artifact
+        path: ./publish
+    - name: Zip Release
+      run: zip -r leave-management-system.zip ./publish
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: leave-management-system.zip
+        tag_name: v${{ github.run_number }}
+        name: Release v${{ github.run_number }}
+        body: "Automated .NET release from CI/CD pipeline."
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
